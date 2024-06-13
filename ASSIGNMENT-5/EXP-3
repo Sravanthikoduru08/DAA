@@ -1,0 +1,36 @@
+from collections import deque
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+def minOperationsToSortLevels(root: TreeNode) -> int:
+    def min_swaps(arr):
+        n = len(arr)
+        sorted_positions = sorted(range(n), key=lambda x: arr[x])
+        visited = [False] * n
+        swaps = 0
+        for i in range(n):
+            if visited[i] or sorted_positions[i] == i:
+                continue
+            cycle_size, j = 0, i
+            while not visited[j]:
+                visited[j] = True
+                j = sorted_positions[j]
+                cycle_size += 1
+            if cycle_size > 0:
+                swaps += cycle_size - 1
+        return swaps
+
+    total_operations, queue = 0, deque([root])
+    while queue:
+        current_level = []
+        for _ in range(len(queue)):
+            node = queue.popleft()
+            current_level.append(node.val)
+            if node.left: queue.append(node.left)
+            if node.right: queue.append(node.right)
+        total_operations += min_swaps(current_level)
+    return total_operations
+root = TreeNode(1, TreeNode(4, TreeNode(7), TreeNode(6)), TreeNode(3, TreeNode(8, TreeNode(9)), TreeNode(5, None, TreeNode(10))))
+print(minOperationsToSortLevels(root))
