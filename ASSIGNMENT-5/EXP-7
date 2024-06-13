@@ -1,0 +1,17 @@
+def countUnequalTriplets(nums):
+    from collections import defaultdict
+    frequency = defaultdict(int)
+    for num in nums:
+        frequency[num] += 1
+    unique_nums = sorted(frequency.keys())
+    unique_count = len(unique_nums)
+    triplet_count = 0
+    for i in range(unique_count):
+        for j in range(i + 1, unique_count):
+            num_i = unique_nums[i]
+            num_j = unique_nums[j]
+            k_count = sum(frequency[num_k] for num_k in unique_nums[j + 1:] if num_k != num_i and num_k != num_j)
+            triplet_count += k_count
+    return triplet_count
+nums = [4, 4, 2, 4, 3]
+print(countUnequalTriplets(nums))
