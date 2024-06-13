@@ -1,0 +1,19 @@
+import math
+from typing import List
+def lcm(a: int, b: int) -> int:
+    return abs(a * b) // math.gcd(a, b)
+
+def subarrays_with_lcm(nums: List[int], k: int) -> int:
+    count = 0
+    for i in range(len(nums)):
+        current_lcm = 1
+        for j in range(i, len(nums)):
+            current_lcm = lcm(current_lcm, nums[j])
+            if current_lcm == k:
+                count += 1
+            if current_lcm > k:
+                break
+    return count
+nums1 = [3, 6, 2, 7, 1]
+k1 = 6
+print(subarrays_with_lcm(nums1, k1))
