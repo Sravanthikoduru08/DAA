@@ -1,0 +1,33 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def tree_height(root):
+    if not root:
+        return 0
+    return 1 + max(tree_height(root.left), tree_height(root.right))
+
+def height_after_subtree_removal(root, queries):
+    def remove_subtree(node, val):
+        if not node:
+            return None, None
+        if node.val == val:
+            return None, node
+        node.left, _ = remove_subtree(node.left, val)
+        node.right, _ = remove_subtree(node.right, val)
+        return node, None
+
+    initial_height = tree_height(root) - 1
+    results = []
+
+    for val in queries:
+        new_root, _ = remove_subtree(root, val)
+        new_height = tree_height(new_root) - 1 if new_root else 0
+        results.append(new_height)
+
+    return results
+root = TreeNode(1,TreeNode(3,TreeNode(2),None),TreeNode(4,TreeNode(6,None,TreeNode(7)),TreeNode(5)))
+queries = [4]
+print(height_after_subtree_removal(root, queries))
