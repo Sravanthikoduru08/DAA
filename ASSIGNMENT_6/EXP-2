@@ -1,0 +1,19 @@
+def min_operations_to_sort(nums):
+    n = len(nums)
+    visited = [False] * n
+    moves = 0
+
+    for i in range(n):
+        if not visited[i]:
+            cycle_length = 0
+            x = i
+            while not visited[x]:
+                visited[x] = True
+                x = nums[x]
+                cycle_length += 1
+            if cycle_length > 1:
+                moves += cycle_length - 1
+
+    return moves
+nums = [4, 2, 0, 3, 1]
+print(min_operations_to_sort(nums))
