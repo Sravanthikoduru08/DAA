@@ -1,0 +1,50 @@
+def gameOfLife(board):
+    if not board:
+        return
+    
+    m, n = len(board), len(board[0])
+    next_board = [[0] * n for _ in range(m)]
+    
+    directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+    
+    def count_live_neighbors(x, y):
+        count = 0
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < m and 0 <= ny < n and (board[nx][ny] == 1 or board[nx][ny] == -1):
+                count += 1
+        return count
+    
+    for i in range(m):
+        for j in range(n):
+            live_neighbors = count_live_neighbors(i, j)
+            if board[i][j] == 1:
+                if live_neighbors < 2 or live_neighbors > 3:
+                    next_board[i][j] = -1  
+                else:
+                    next_board[i][j] = 1  
+            else:
+                if live_neighbors == 3:
+                    next_board[i][j] = 2      
+    for i in range(m):
+        for j in range(n):
+            if next_board[i][j] == -1:
+                board[i][j] = 0
+            elif next_board[i][j] == 2:
+                board[i][j] = 1
+
+board1 = [
+    [0,1,0],
+    [0,0,1],
+    [1,1,1],
+    [0,0,0]
+]
+gameOfLife(board1)
+print(board1) 
+
+board2 = [
+    [1,1],
+    [1,0]
+]
+gameOfLife(board2)
+print(board2)  
