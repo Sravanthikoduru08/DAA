@@ -1,0 +1,28 @@
+def largeGroupPositions(s):
+    # Initialize variables
+    n = len(s)
+    result = []
+    start = 0
+    
+    # Iterate through the string
+    while start < n:
+        # Initialize the current character and its start index
+        char = s[start]
+        end = start
+        
+        # Expand the end index to find the end of the current group
+        while end < n and s[end] == char:
+            end += 1
+        
+        # Check if the current group is large
+        if end - start >= 3:
+            result.append([start, end - 1])
+        
+        # Move start to the next character
+        start = end
+    
+    return result
+
+# Test cases
+print(largeGroupPositions("abbxxxxzzy"))  # Output: [[3, 6]]
+print(largeGroupPositions("abc"))          # Output: []
