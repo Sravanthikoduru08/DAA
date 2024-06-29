@@ -1,0 +1,11 @@
+def find_max(nums):
+    return max(nums)
+
+# Test cases
+test_case1 = [1, 2, 3, 4, 5]
+test_case2 = [7, 7, 7, 7, 7]
+test_case3 = [-10, 2, 3, -4, 5]
+
+print(find_max(test_case1))  # Expected Output: 5
+print(find_max(test_case2))  # Expected Output: 7
+print(find_max(test_case3))  # Expected Output: 5
