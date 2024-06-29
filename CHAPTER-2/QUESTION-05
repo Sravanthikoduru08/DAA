@@ -1,0 +1,13 @@
+def find_kth_missing(arr, k):
+    missing = 0
+    prev = 0
+    for num in arr:
+        missing += num - prev - 1
+        if missing >= k:
+            return num - (missing - k + 1)
+        prev = num
+    return arr[-1] + (k - missing)
+
+# Test cases
+print(find_kth_missing([2, 3, 4, 7, 11], 5))  # Expected Output: 9
+print(find_kth_missing([1, 2, 3, 4], 2))  # Expected Output: 6
