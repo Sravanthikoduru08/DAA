@@ -1,0 +1,22 @@
+def bubble_sort(nums):
+    n = len(nums)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if nums[j] > nums[j + 1]:
+                # Swap if the element found is greater than the next element
+                nums[j], nums[j + 1] = nums[j + 1], nums[j]
+                swapped = True
+        # If no elements were swapped in the inner loop, then the list is already sorted
+        if not swapped:
+            break
+    return nums
+
+# Test cases
+test_case1 = [64, 34, 25, 12, 22, 11, 90]
+test_case2 = [5, 1, 4, 2, 8]
+test_case3 = [3, 0, -2, 6, -1]
+
+print(bubble_sort(test_case1))  # Output: [11, 12, 22, 25, 34, 64, 90]
+print(bubble_sort(test_case2))  # Output: [1, 2, 4, 5, 8]
+print(bubble_sort(test_case3))  # Output: [-2, -1, 0, 3, 6]
